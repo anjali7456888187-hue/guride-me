@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="Turbo Charge account, updates and support">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Turbo Charge</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="./"><span class="brand-mark">TC</span><span>Turbo Charge<small>MEMBER PORTAL</small></span></a>
+      <div class="top-actions"><span id="user-label" class="user-label"></span><button id="signout-btn" class="button button-quiet hidden">Sign out</button></div>
+    </header>
+    <main>
+      <section id="auth-view" class="auth-layout">
+        <div class="welcome-panel">
+          <p class="eyebrow">WELCOME</p><h1>Your account.<br><span>Your updates.</span></h1>
+          <p class="muted">Sign in with your email to view announcements, manage your profile and contact support.</p>
+          <div class="feature-pills"><span>Secure email sign-in</span><span>Account support</span><span>App updates</span></div>
+        </div>
+        <form id="auth-form" class="panel auth-card">
+          <p class="eyebrow">EMAIL ACCESS</p><h2 id="auth-title">Sign in</h2>
+          <label for="email">Email address</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <button id="send-code-btn" class="button button-primary" type="submit">Send email code</button>
+          <div id="otp-area" class="hidden">
+            <label for="otp">Verification code</label><input id="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="Enter the code from your email">
+            <button id="verify-btn" class="button button-primary" type="button">Verify and sign in</button>
+          </div>
+          <p id="auth-message" class="message" role="status"></p>
+          <p class="tiny muted">Email-only sign-in. No phone number is requested.</p>
+        </form>
+      </section>
+
+      <section id="app-view" class="hidden">
+        <div class="hero">
+          <div><p class="eyebrow">MEMBER AREA</p><h1>Welcome to <span>Turbo Charge</span></h1><p class="muted">Your account, app news and support in one place.</p></div>
+          <div class="hero-orb" aria-hidden="true">TC</div>
+        </div>
+        <nav class="tabs" aria-label="Main sections">
+          <button class="tab active" data-tab="home">Overview</button>
+          <button class="tab" data-tab="profile">Profile</button>
+          <button class="tab" data-tab="support">Support</button>
+          <button class="tab" data-tab="notifications">Notifications <span id="unread-count" class="count hidden">0</span></button>
+          <button id="admin-tab" class="tab hidden" data-tab="admin">Admin</button>
+        </nav>
+        <section id="tab-home" class="tab-panel">
+          <div class="section-heading"><div><p class="eyebrow">LATEST</p><h2>Announcements</h2></div><button id="refresh-home" class="button button-quiet">Refresh</button></div>
+          <div id="announcements" class="cards-grid"><div class="panel empty">Loading announcements…</div></div>
+          <div class="info-strip"><div><strong>Need a hand?</strong><p class="muted">Send our support team a message. We’ll let you know when it’s received.</p></div><button class="button button-secondary" data-go-tab="support">Contact support</button></div>
+        </section>
+        <section id="tab-profile" class="tab-panel hidden">
+          <div class="section-heading"><div><p class="eyebrow">YOUR DETAILS</p><h2>Profile</h2></div></div>
+          <form id="profile-form" class="panel form-panel"><label for="display-name">Display name</label><input id="display-name" maxlength="60" placeholder="Your name"><p id="profile-email" class="muted tiny"></p><button class="button button-primary" type="submit">Save profile</button><p id="profile-message" class="message" role="status"></p></form>
+        </section>
+        <section id="tab-support" class="tab-panel hidden">
+          <div class="section-heading"><div><p class="eyebrow">WE’RE HERE TO HELP</p><h2>Support</h2></div></div>
+          <div class="support-layout">
+            <form id="ticket-form" class="panel form-panel"><h3>Start a conversation</h3><label for="ticket-subject">What do you need help with?</label><input id="ticket-subject" maxlength="160" required placeholder="Briefly describe your question"><button class="button button-primary" type="submit">Create support request</button><p id="ticket-message" class="message" role="status"></p></form>
+            <div class="panel"><h3>Your requests</h3><div id="ticket-list" class="ticket-list"><p class="muted">Loading…</p></div></div>
+          </div>
+          <div id="conversation-panel" class="panel conversation hidden"><div class="section-heading"><h3 id="conversation-title">Conversation</h3><span id="conversation-status" class="status"></span></div><div id="message-list" class="message-list"></div><form id="reply-form" class="reply-form"><input id="reply-text" maxlength="4000" placeholder="Write a message…" required><button class="button button-primary" type="submit">Send</button></form></div>
+        </section>
+        <section id="tab-notifications" class="tab-panel hidden">
+          <div class="section-heading"><div><p class="eyebrow">ACCOUNT UPDATES</p><h2>Notifications</h2></div><button id="refresh-notifications" class="button button-quiet">Refresh</button></div>
+          <div id="notifications-list" class="stack-list"><div class="panel empty">Loading notifications…</div></div>
+        </section>
+        <section id="tab-admin" class="tab-panel hidden">
+          <div class="section-heading"><div><p class="eyebrow">RESTRICTED AREA</p><h2>Admin dashboard</h2></div><span class="status status-admin">Admin access</span></div>
+          <div class="admin-grid">
+            <form id="announcement-form" class="panel form-panel"><h3>Publish announcement</h3><label for="announcement-title">Title</label><input id="announcement-title" maxlength="120" required><label for="announcement-body">Message</label><textarea id="announcement-body" maxlength="5000" required rows="4"></textarea><button class="button button-primary" type="submit">Publish</button><p id="announcement-message" class="message" role="status"></p></form>
+            <div class="panel"><h3>Support queue</h3><div id="admin-ticket-list" class="ticket-list">Loading…</div></div>
+            <form id="notification-form" class="panel form-panel"><h3>Send a notification</h3><label for="notification-user">User ID</label><input id="notification-user" required placeholder="User UUID"><label for="notification-title">Title</label><input id="notification-title" maxlength="120" required><label for="notification-body">Message</label><textarea id="notification-body" maxlength="2000" rows="3" required></textarea><button class="button button-primary" type="submit">Send notification</button><p id="admin-message" class="message" role="status"></p></form>
+          </div>
+        </section>
+      </section>
+    </main>
+    <footer><span>Turbo Charge</span><span>Account & support portal</span></footer>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
